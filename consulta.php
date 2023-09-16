@@ -13,12 +13,13 @@
             <a href="cadastro.php">Cadastrar produto</a>
         </nav>
 
-        <form action="get">
+        <h2>Consulta</h2>
+        <form method="get">
             <label for="nome">Nome do produto: </label>
             <input type="text" name="nome">
         </form>
 
-        <button type="submit" class="button">Consultar</button>
+        <input type="submit" value="Consultar" class="button"></input>
     
 </body>
 </html>
