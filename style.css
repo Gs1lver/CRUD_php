@@ -4,6 +4,8 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
 
     background-color: #f5f5f5;
     min-width: 100dvw;
@@ -16,7 +18,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #000;
+    color: #3A3238;
     font-size: 50px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -24,7 +26,7 @@ h1 {
 h2 {
     margin: 0.5rem 0 1rem 0;
     text-align: center;
-    color: #000;
+    color: #3A3238;
     font-size: 45px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -47,7 +49,7 @@ input, select{
 }
 .button {
     text-decoration: none;
-    background-color: #000;
+    background-color: #3A3238;
     color: #fff;
     font-size: 20px;
     
