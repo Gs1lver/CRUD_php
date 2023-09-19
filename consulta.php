@@ -14,7 +14,7 @@
         </nav>
 
         <h2>Consulta</h2>
-        <form method="post">
+        <form method="get">
             <label for="nome">Nome do produto: </label>
             <input type="text" name="consulta">
             
@@ -29,19 +29,23 @@
 
     include('database.php');
 
-    if ($_SERVER["REQUEST_METHOD"] === 'POST'){
+    if (isset($_GET["consulta"])){
         try{
-            $smt = consultar();
+            $nome = $_GET["consulta"];
+            $smt = consultar($nome);
             echo "<form method='post'><table border='1px'>";
             echo "<tr><th></th><th>Nome</th><th>Preço</th><th>Categoria</th><th>Foto</th></tr>";
 
             while ($row = $smt->fetch()){
                 echo "<tr>";
                 echo "<td><input type='radio' name='nomeProduto'>";
-                echo "<td>" . $row['nome'] . "</td>";
-                echo "<td>" . $row['preco'] . "</td>";
-                echo "<td>" . $row['categoria'] . "</td>";
-                echo "<td><img src='" . $row['foto'] . "'></td>";
+                echo "<td>{$row['nome']}</td>";
+                echo "<td>{$row['preco']}</td>";
+                echo "<td>{$row['categoria']}</td>";
+                if ($row["foto"] != null)
+                    echo "<td><img src='{$row['foto']}' width='50px' height='50px'></td>";
+                else
+                    echo "<td>-</td>";
                 echo "</tr>";
             }
 

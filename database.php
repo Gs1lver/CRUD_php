@@ -40,12 +40,13 @@
     function verificarProduto(){
 
     }
-    function consultar(){
+    
+    function consultar($nome = null) {
         $pdo = conexao();
-        if(isset($_POST["consulta"]) && $_POST["consulta"] != ""){
-            $consulta = $_POST["consulta"];
+
+        if($nome != null && $nome != ""){
             $smt = $pdo->prepare("SELECT * FROM padaria WHERE nome= :nome");
-            $smt->bindParam(':nome', $consulta);
+            $smt->bindParam(':nome', $nome);
         } else {
             $smt = $pdo->prepare("SELECT * FROM padaria");
         }
