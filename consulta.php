@@ -51,7 +51,7 @@ if (isset($_GET["consulta"])) {
 
         echo "</table><br>";
         echo "<input type='submit' name='excluir' value='Excluir' class='button'></input>";
-        echo "<input type='submit' value='Alterar' class='button'></input>";
+        echo "<input type='submit'name='alterar' value='Alterar' class='button'></input>";
         echo "</form>";
 
         //exclusão
@@ -66,6 +66,7 @@ if (isset($_GET["consulta"])) {
         //alteração
         if (isset($_POST["alterar"]) && isset($_POST["nomeProduto"])) {
             $produtoAlterar = $_POST["nomeProduto"];
+            //echo "Botão Alterar clicado. Produto selecionado: " . $_POST["nomeProduto"];
             header("Location: alterar.php?produto=$produtoAlterar");
         } elseif (isset($_POST["alterar"])) {
             echo "<span>Selecione um produto para alterar!</span>";

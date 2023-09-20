@@ -73,8 +73,35 @@
         }
     }
 
-    function alterar(){
+    function alterarComFoto($nome, $preco, $categoria, $foto){
+        try {
+            $pdo = conexao();
+            $smt = $pdo->prepare("UPDATE padaria SET nome = :nome, preco = :preco, categoria = :categoria, foto = :foto WHERE nome = :nome");
+            $smt->bindParam(':nome', $nome);
+            $smt->bindParam(':preco', $preco);
+            $smt->bindParam(':categoria', $categoria);
+            $smt->bindParam(':foto', $foto);
+            $smt->execute();
+            echo "<span>Produto alterado com sucesso!</span>";
+        } catch (PDOException $e){
+            echo "Erro ao alterar produto: " . $e->getMessage();
+        }
 
     }
+
+    function alterarSemFoto($nome, $preco, $categoria){
+        try{
+            $pdo = conexao();
+            $smt = $pdo->prepare("UPDATE padaria SET nome = :nome, preco = :preco, categoria = :categoria WHERE nome = :nome");
+            $smt->bindParam(':nome', $nome);
+            $smt->bindParam(':preco', $preco);
+            $smt->bindParam(':categoria', $categoria);
+            $smt->execute();
+            echo "<span>Produto alterado com sucesso!</span>";
+        } catch (PDOException $e){
+            echo "Erro ao alterar produto: " . $e->getMessage();
+        }
+    }
+
 
 
