@@ -47,6 +47,12 @@ input, select{
     border-radius: 0.5rem;
     padding: 0.2rem;
 }
+
+div {
+    display: flex;
+    justify-content: center;
+}
+
 .button {
     text-decoration: none;
     background-color: #3A3238;

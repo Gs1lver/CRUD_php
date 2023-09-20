@@ -37,7 +37,7 @@
 
     <form method="post" enctype="multipart/form-data">
     <label for="nome">Nome do Produto: </label>
-    <input type="text" name="nome" value="<?= isset($produto['nome']) ? $produto['nome'] : ''; ?>">
+    <input type="text" name="nome" value="<?= isset($produto['nome']) ? $produto['nome'] : ''; ?>" disabled>
 
     <label for="preco">Preço: </label>
     <input type="text" name="preco" value="<?= isset($produto['preco']) ? $produto['preco'] : ''; ?>">
