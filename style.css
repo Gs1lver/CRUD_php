@@ -34,7 +34,6 @@ h2 {
 form{
     display: flex;
     flex-direction: column;
-    max-width: fit-content;
     min-height: min-content;
     padding: 1rem;
     background-color: #d6d4d4;
