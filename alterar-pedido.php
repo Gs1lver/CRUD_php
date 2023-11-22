@@ -38,6 +38,9 @@
     <h2>Alterar</h2>
 
     <form method="post" enctype="multipart/form-data">
+        <label for="codigo">Código do pedido:</label>
+        <input type="text" name="codigo" value="<?= isset($pedido['codigo']) ? $pedido['codigo'] : ''; ?>">    
+
         <label for="cliente">Nome do cliente:</label>
         <input type="text" name="cliente" value="<?= isset($pedido['cliente']) ? $pedido['cliente'] : ''; ?>" disabled>
 
@@ -55,8 +58,8 @@
 
         <label for="disponivel">Concluído: </label>
         <select name="disponivel">
-            <option value="sim" <?= isset($pedido['disponivel']) && $pedido['disponivel'] == 'sim' ? 'selected' : ''; ?>>Sim</option>
-            <option value="nao" <?= isset($pedido['disponivel']) && $pedido['disponivel'] == 'nao' ? 'selected' : ''; ?>>Não</option>
+            <option value="0" <?= isset($pedido['disponivel']) && $pedido['disponivel'] == '0' ? 'selected' : ''; ?>>Sim</option>
+            <option value="1" <?= isset($pedido['disponivel']) && $pedido['disponivel'] == '1' ? 'selected' : ''; ?>>Não</option>
         </select>
 
         <input type="submit" value="Salvar" name="salvar" class="button"></input>
@@ -69,9 +72,9 @@
 
      if(isset($_POST['salvar']) && isset($_POST['disponivel'])){
         $disponivel = $_POST['disponivel'];
+        $codigo = $_POST['codigo'];
             
-        alterarPedido($disponivel);
-        header('Location: consulta-pedido.php');
+        alterarPedido($codigo, $disponivel);
      }
 
 ?>

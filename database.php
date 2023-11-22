@@ -152,7 +152,7 @@ function cadastrarPedido($cliente, $produto, $quantidade, $entrega, $disponivel)
         $smt->bindParam(':entrega', $entrega);
         $smt->bindParam(':disponivel', $disponivel);
         $smt->execute();
-        echo "<span class='success'>Produto cadastrado com sucesso!</span>";
+        echo "<span class='success'>Pedido cadastrado com sucesso!</span>";
 
     } catch (PDOException $e) {
         echo "<span class='warning'>Erro ao cadastrar pedido: " . $e->getMessage() . "</span>";
@@ -182,16 +182,15 @@ function consultarPedido($codigo = null)
     return $smt;
 }
 
-function alterarPedido($disponivel){
+function alterarPedido($codigo, $disponivel){
     try {
         $pdo = conexao();
-        $smt = $pdo->prepare("UPDATE padaria_pedidos SET nome = :nome, preco = :preco, categoria = :categoria WHERE nome = :nome");
-        $smt->bindParam(':nome', $nome);
-        $smt->bindParam(':preco', $preco);
-        $smt->bindParam(':categoria', $categoria);
+        $smt = $pdo->prepare("UPDATE padaria_pedidos SET disponivel = :disponivel WHERE codigo = :codigo");
+        $smt->bindParam(':codigo', $codigo);
+        $smt->bindParam(':disponivel', $disponivel);
         $smt->execute();
-        echo "<span class='success'>Produto alterado com sucesso!</span>";
+        echo "<span class='success'>Pedido alterado com sucesso!</span>";
     } catch (PDOException $e) {
-        echo "<span class='warning'>Erro ao alterar produto: " . $e->getMessage() . "</span>";
+        echo "<span class='warning'>Erro ao alterar pedido: " . $e->getMessage() . "</span>";
     }
 }
