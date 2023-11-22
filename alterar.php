@@ -39,7 +39,7 @@
 
     <form method="post" enctype="multipart/form-data">
     <label for="nome">Nome do Produto: </label>
-    <input type="text" name="nome" value="<?= isset($produto['nome']) ? $produto['nome'] : ''; ?>">
+    <input type="text" name="nome" value="<?= isset($produto['nome']) ? $produto['nome'] : ''; ?>" readonly>
 
     <label for="preco">Preço: </label>
     <input type="text" name="preco" value="<?= isset($produto['preco']) ? $produto['preco'] : ''; ?>">
@@ -63,8 +63,9 @@
 </html>
 <?php
 
-     if(isset($_POST['salvar']) && isset($_POST['nome']) && isset($_POST['preco']) && isset($_POST['categoria']) && isset($_FILES['foto'])){
+     if(isset($_POST['salvar']) && isset($_POST['preco']) && isset($_POST['categoria']) && isset($_FILES['foto'])){
         $nome = $_POST['nome'];
+        var_dump($nome);
         $preco = $_POST['preco'];
         $categoria = $_POST['categoria'];
         $foto = $_FILES['foto'];
