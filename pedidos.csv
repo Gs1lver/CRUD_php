@@ -1,0 +1,7 @@
+produto,quantidade,cliente,entrega,codigo,disponivel
+cigarro,1,linda,delivery,1,0
+cigarro,50,babi,retirada,2,0
+tortuguita,4,meinda,delivery,3,1
+"pão de queijo",2,will,retirada,4,1
+brigadeiro,2,nat,delivery,5,1
+"sonho de Babi",2,lua,retirada,6,1

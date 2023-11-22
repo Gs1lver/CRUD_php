@@ -35,4 +35,8 @@ if (isset($_GET["arquivoProdutos"])) {
     $smt = criarArquivoProdutos("produtos.csv");
 }
 
+if (isset($_GET["arquivoPedidos"])) {
+    $smt = criarArquivoPedidos("pedidos.csv");
+}
+
 ?>

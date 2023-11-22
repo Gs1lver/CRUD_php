@@ -42,6 +42,32 @@ function criarArquivoProdutos($nomeArquivo)
     }
 }
 
+function criarArquivoPedidos($nomeArquivo)
+{
+    try {
+        $pdo = conexao();
+
+        $smt = $pdo->prepare("SELECT * FROM padaria_pedidos");
+        $smt->execute();
+        $dados = $smt->fetchAll(PDO::FETCH_ASSOC); // essa linha é a que faz o select e retorna os dados
+
+        $csv_file = fopen($nomeArquivo, "w");
+
+        if (!empty($dados)) {
+            fputcsv($csv_file, array_keys($dados[0]));
+        }
+
+        foreach ($dados as $linha) {
+            fputcsv($csv_file, $linha);
+        }
+
+        fclose($csv_file);
+        echo "<span class='success'>Arquivo criado com sucesso!</span>";
+    } catch (PDOException $e) {
+        echo "<span class='warning'>Erro ao criar arquivo: " . $e->getMessage() . "</span>";
+    }
+}
+
 function cadastrar($nome, $preco, $categoria, $foto)
 {
     try {
