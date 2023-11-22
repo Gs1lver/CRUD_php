@@ -89,6 +89,14 @@ function consultarProduto($nome = null)
     return $smt;
 }
 
+function produtosDisponiveis(){
+    $pdo = conexao();
+    $smt = $pdo->prepare("SELECT nome FROM padaria_produtos");
+    $smt->execute();
+    return $smt;
+    //retorna so os nomes de produtos
+}
+
 function excluirProduto($nome)
 {
     try {
@@ -133,16 +141,15 @@ function alterarProdutoSemFoto($nome, $preco, $categoria)
     }
 }
 
-function cadastrarPedido($cliente, $produto, $quantidade, $entrega, $preco, $disponivel)
+function cadastrarPedido($cliente, $produto, $quantidade, $entrega, $disponivel)
 {
     try {
-        $nome = ucfirst($cliente);
         $pdo = conexao();
-        $smt = $pdo->prepare("INSERT INTO padaria_pedidos (cliente, produto, quantidade, entrega, preco, disponivel) VALUES (:cliente, :produto, :quantidade, :entrega, :preco, :disponivel)");
+        $smt = $pdo->prepare("INSERT INTO padaria_pedidos (cliente, produto, quantidade, entrega, disponivel) VALUES (:cliente, :produto, :quantidade, :entrega, :disponivel)");
         $smt->bindParam(':cliente', $cliente);
         $smt->bindParam(':produto', $produto);
         $smt->bindParam(':quantidade', $entrega);
-        $smt->bindParam(':preco', $preco);
+        $smt->bindParam(':disponivel', $disponivel);
         $smt->execute();
         echo "<span class='success'>Produto cadastrado com sucesso!</span>";
 
@@ -172,12 +179,4 @@ function alterarPedido($disponivel){
     } catch (PDOException $e) {
         echo "<span class='warning'>Erro ao alterar produto: " . $e->getMessage() . "</span>";
     }
-}
-
-function produtosDisponiveis(){
-    $pdo = conexao();
-    $smt = $pdo->prepare("SELECT nome FROM padaria_produtos");
-    $smt->execute();
-    return $smt;
-    //retorna so os nomes de produtos
 }

@@ -16,7 +16,7 @@
 
         <a href="index.html">Home</a>
         <a href="pedidos.php">Pedidos</a>
-        <a href="consulta.php">Consulta</a>
+        <a href="tela-consulta.php">Consulta</a>
         <a href="arquivo.php">Arquivos</a>
     </nav>
 

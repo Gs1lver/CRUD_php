@@ -13,26 +13,17 @@
     <nav>
         <img src="imgs/illustrations/baguete.png" alt="logo">
 
-        <a href="index.html">Home</a>
-        <a href="tela-consulta.php">Consulta</a>
+        <a href="indext.html">Home</a>
+        <a href="pedidos.php">Pedidos</a>
         <a href="cadastro.php">Cadastro</a>
+        <a href="arquivo.php">Arquivos</a>
     </nav>
 
     <form method="get">
-        <input type="submit" name="arquivoProdutos" value="Produtos" class="button"></input>
-        <input type="submit" name="arquivoPedidos" value="Pedidos" class="button"></input>
+        <input type="submit" class="button" href="consulta.php"></input>
+        <input type="submit" class="button" href="consulta-pedido.php"></input>
     </form>
 
 </body>
 
 </html>
-
-
-<?php
-include('database.php');
-
-if (isset($_GET["arquivoProdutos"])) {
-    $smt = criarArquivoProdutos("produtos.csv");
-}
-
-?>

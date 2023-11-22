@@ -32,7 +32,7 @@
         <img src="imgs/illustrations/baguete.png" alt="logo">
 
         <a href="index.html">Home</a>
-        <a href="consulta.php">Consulta</a>
+        <a href="tela-consulta.php">Consulta</a>
     </nav>
 
     <h2>Alterar</h2>

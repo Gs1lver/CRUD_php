@@ -16,7 +16,7 @@
 
         <a href="index.html">Home</a>
         <a href="cadastro.php">Cadastro</a>
-        <a href="consulta.php">Consulta</a>
+        <a href="tela-consulta.php">Consulta</a>
         <a href="arquivo.php">Arquivos</a>
     </nav>
 
@@ -44,17 +44,31 @@
         <input type="number" name="quantidade" min="0" max="50" required>
 
         <label for="entrega">Entrega:</label>
-        <div>
-            <input type='radio' name='opcaoEntrega' id="delivery" value="delivery">
-            <label for="delivery">Delivery</label>
-        </div>
-        <div>
-            <input type='radio' name='opcaoEntrega' id="retirada" value="retirada">
-            <label for="retirada">Retirada</label>
-        </div>
+        <select name="entrega" id="" required>
+            <option value="delivery">Delivery</option>
+            <option value="retirada">Retirada</option>
+        </select>
 
         <input class="button" type="submit" value="Pedir">
     </form>
 </body>
 
 </html>
+
+<?php
+include("database.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $cliente = $_POST["cliente"];
+    $produto = $_POST["produto"];
+    $quantidade = $_POST["quantidade"];
+    $entrega = $_POST["entrega"];
+    $disponivel = 1;
+
+    try {
+        cadastrarPedido($cliente, $produto, $quantidade, $entrega, $disponivel);
+    } catch (PDOException $e) {
+        echo "Erro ao cadastrar pedido: " . $e->getMessage();
+    }
+}
+?>
