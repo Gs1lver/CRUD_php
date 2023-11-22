@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,23 +8,29 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="cadastro.php">Cadastrar produto</a>
-        </nav>
+    <nav>
+        <img src="imgs/illustrations/baguete.png" alt="logo">
 
-        <h2>Consulta</h2>
-        <form method="get">
-            <label for="nome">Nome do produto: </label>
-            <input type="text" name="consulta">
-            
-            <input type="submit" value="Consultar" class="button"></input>
-        </form>
-        <br>
+        <a href="index.html">Home</a>
+        <a href="pedidos.php">Pedidos</a>
+        <a href="cadastro.php">Cadastro</a>
+        <a href="arquivo.php">Arquivos</a>
+    </nav>
 
-    
+    <h2>Consulta</h2>
+    <form method="get">
+        <label for="nome">Nome do produto: </label>
+        <input type="text" name="consulta">
+
+        <input type="submit" value="Consultar" class="button"></input>
+    </form>
+    <br>
+
+
 </body>
+
 </html>
 <?php
 include('database.php');
@@ -31,7 +38,7 @@ include('database.php');
 if (isset($_GET["consulta"])) {
     try {
         $nome = $_GET["consulta"];
-        $smt = consultar($nome);
+        $smt = consultarProduto($nome);
         echo "<form method='post'><table border='1px'>";
         echo "<tr><th></th><th>Nome</th><th>Preço</th><th>Categoria</th><th>Foto</th></tr>";
 
@@ -57,10 +64,9 @@ if (isset($_GET["consulta"])) {
         //exclusão
         if (isset($_POST["excluir"]) && isset($_POST["nomeProduto"])) {
             $produtoExcluir = $_POST["nomeProduto"];
-            excluir($produtoExcluir);
-
+            excluirProduto($produtoExcluir);
         } elseif (isset($_POST["excluir"])) {
-            echo "<span>Selecione um produto para excluir!</span>";
+            echo "<span class='warning'>Selecione um produto para excluir!</span>";
         }
 
         //alteração
@@ -69,11 +75,11 @@ if (isset($_GET["consulta"])) {
             //echo "Botão Alterar clicado. Produto selecionado: " . $_POST["nomeProduto"];
             header("Location: alterar.php?produto=$produtoAlterar");
         } elseif (isset($_POST["alterar"])) {
-            echo "<span>Selecione um produto para alterar!</span>";
+            echo "<span class='warning'>Selecione um produto para alterar!</span>";
         }
-
     } catch (PDOException $e) {
         echo "Erro ao consultar produto: " . $e->getMessage();
     }
 }
+
 ?>

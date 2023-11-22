@@ -1,107 +1,134 @@
 <?php
 
-    require('env.php');
+require('env.php');
 
-    function conexao(){
-        global $host, $user, $password, $database; //nao sei se é um bom habito mas n consegui pensar em outra forma de fazer isso :()
-        try {
-            $con = "mysql:host=$host;dbname=$database;charset=utf8";
-            $pdo = new PDO($con, $user, $password); 
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-        }catch (PDOException $e) {
-            echo "Erro ao conectar ao banco: " . $e->getMessage();
-        }
-
-        return $pdo;
+function conexao()
+{
+    global $host, $user, $password, $database; //nao sei se é um bom habito mas n consegui pensar em outra forma de fazer isso :()
+    try {
+        $con = "mysql:host=$host;dbname=$database;charset=utf8";
+        $pdo = new PDO($con, $user, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        echo "<span class='warning'>Erro ao conectar ao banco: " . $e->getMessage() . "</span>";
     }
 
-    function cadastrar($nome, $preco, $categoria, $foto){
-        try{
-            $nome = strtolower($nome);
-            $pdo = conexao();
-            $rows = verificarProdutoExistente($nome, $pdo);
+    return $pdo;
+}
 
-            if ($rows <= 0){
-                $smt = $pdo->prepare("INSERT INTO padaria (nome, preco, categoria, foto) VALUES (:nome, :preco, :categoria, :foto)");
-                $smt->bindParam(':nome', $nome);
-                $smt->bindParam(':preco', $preco);
-                $smt->bindParam(':categoria', $categoria);
-                $smt->bindParam(':foto', $foto);
-                $smt->execute();
-                echo "<span>Produto cadastrado com sucesso!</span>";
-            } else {
-                echo "<span>Produto já cadastrado!</span>";
-            }
-
-        } catch (PDOException $e){
-            echo "Erro ao cadastrar produto: " . $e->getMessage();
-        }
-    }
-
-    function verificarProdutoExistente($nome, $pdo){
-        $nome = strtolower($nome);
-        $smt = $pdo->prepare("SELECT * FROM padaria WHERE nome = :nome");
-        $smt->bindParam(':nome', $nome);
-        $smt->execute();
-        $rows = $smt->rowCount();
-        return $rows;
-    }
-    
-    function consultar($nome = null) {
+function criarArquivoProdutos($nomeArquivo)
+{
+    try {
         $pdo = conexao();
 
-        if($nome != null && $nome != ""){
-            $smt = $pdo->prepare("SELECT * FROM padaria WHERE nome= :nome");
-            $smt->bindParam(':nome', $nome);
-        } else {
-            $smt = $pdo->prepare("SELECT * FROM padaria");
-        }
+        $smt = $pdo->prepare("SELECT * FROM padaria_produtos");
         $smt->execute();
-        return $smt;
-    }
+        $dados = $smt->fetchAll(PDO::FETCH_ASSOC); // essa linha é a que faz o select e retorna os dados
 
-    function excluir($nome){
-        try{
-            $pdo = conexao();
-            $smt = $pdo->prepare("DELETE FROM padaria WHERE nome = :nome");
-            $smt->bindParam(':nome', $nome);
-            $smt->execute();
-            echo "<span>Produto excluído com sucesso! Consulte novamente para atualizar a tabela!</span>";
-        } catch (PDOException $e){
-            echo "Erro ao excluir produto: " . $e->getMessage();
+        $csv_file = fopen($nomeArquivo, "w");
+
+        if (!empty($dados)) {
+            fputcsv($csv_file, array_keys($dados[0]));
         }
-    }
 
-    function alterarComFoto($nome, $preco, $categoria, $foto){
-        try {
-            $pdo = conexao();
-            $smt = $pdo->prepare("UPDATE padaria SET nome = :nome, preco = :preco, categoria = :categoria, foto = :foto WHERE nome = :nome");
+        foreach ($dados as $linha) {
+            fputcsv($csv_file, $linha);
+        }
+
+        fclose($csv_file);
+        echo "<span class='success'>Arquivo criado com sucesso!</span>";
+    } catch (PDOException $e) {
+        echo "<span class='warning'>Erro ao criar arquivo: " . $e->getMessage() . "</span>";
+    }
+}
+
+function cadastrar($nome, $preco, $categoria, $foto)
+{
+    try {
+        $nome = ucfirst($nome);
+        $pdo = conexao();
+        $rows = verificarProdutoExistente($nome, $pdo);
+
+        if ($rows <= 0) {
+            $smt = $pdo->prepare("INSERT INTO padaria_produtos (nome, preco, categoria, foto) VALUES (:nome, :preco, :categoria, :foto)");
             $smt->bindParam(':nome', $nome);
             $smt->bindParam(':preco', $preco);
             $smt->bindParam(':categoria', $categoria);
             $smt->bindParam(':foto', $foto);
             $smt->execute();
-            echo "<span>Produto alterado com sucesso!</span>";
-        } catch (PDOException $e){
-            echo "Erro ao alterar produto: " . $e->getMessage();
+            echo "<span class='success'>Produto cadastrado com sucesso!</span>";
+        } else {
+            echo "<span class='warning'>Produto já cadastrado!</span>";
         }
-
+    } catch (PDOException $e) {
+        echo "<span class='warning'>Erro ao cadastrar produto: " . $e->getMessage() . "</span>";
     }
+}
 
-    function alterarSemFoto($nome, $preco, $categoria){
-        try{
-            $pdo = conexao();
-            $smt = $pdo->prepare("UPDATE padaria SET nome = :nome, preco = :preco, categoria = :categoria WHERE nome = :nome");
-            $smt->bindParam(':nome', $nome);
-            $smt->bindParam(':preco', $preco);
-            $smt->bindParam(':categoria', $categoria);
-            $smt->execute();
-            echo "<span>Produto alterado com sucesso!</span>";
-        } catch (PDOException $e){
-            echo "Erro ao alterar produto: " . $e->getMessage();
-        }
+function verificarProdutoExistente($nome, $pdo)
+{
+    $nome = strtolower($nome);
+    $smt = $pdo->prepare("SELECT * FROM padaria_produtos WHERE nome = :nome");
+    $smt->bindParam(':nome', $nome);
+    $smt->execute();
+    $rows = $smt->rowCount();
+    return $rows;
+}
+
+function consultarProduto($nome = null)
+{
+    $pdo = conexao();
+
+    if ($nome != null && $nome != "") {
+        $smt = $pdo->prepare("SELECT * FROM padaria_produtos WHERE nome= :nome");
+        $smt->bindParam(':nome', $nome);
+    } else {
+        $smt = $pdo->prepare("SELECT * FROM padaria_produtos");
     }
+    $smt->execute();
+    return $smt;
+}
 
+function excluirProduto($nome)
+{
+    try {
+        $pdo = conexao();
+        $smt = $pdo->prepare("DELETE FROM padaria_produtos WHERE nome = :nome");
+        $smt->bindParam(':nome', $nome);
+        $smt->execute();
+        echo "<span class='success'>Produto excluído com sucesso! Consulte novamente para atualizar a tabela!</span>";
+    } catch (PDOException $e) {
+        echo "<span class='warning'>Erro ao excluir produto: " . $e->getMessage() . "</span>";
+    }
+}
 
+function alterarProdutoComFoto($nome, $preco, $categoria, $foto)
+{
+    try {
+        $pdo = conexao();
+        $smt = $pdo->prepare("UPDATE padaria_produtos SET nome = :nome, preco = :preco, categoria = :categoria, foto = :foto WHERE nome = :nome");
+        $smt->bindParam(':nome', $nome);
+        $smt->bindParam(':preco', $preco);
+        $smt->bindParam(':categoria', $categoria);
+        $smt->bindParam(':foto', $foto);
+        $smt->execute();
+        echo "<span class='success'>Produto alterado com sucesso!</span>";
+    } catch (PDOException $e) {
+        echo "<span class='warning'>Erro ao alterar produto: " . $e->getMessage() . "</span>";
+    }
+}
 
+function alterarProdutoSemFoto($nome, $preco, $categoria)
+{
+    try {
+        $pdo = conexao();
+        $smt = $pdo->prepare("UPDATE padaria_produtos SET nome = :nome, preco = :preco, categoria = :categoria WHERE nome = :nome");
+        $smt->bindParam(':nome', $nome);
+        $smt->bindParam(':preco', $preco);
+        $smt->bindParam(':categoria', $categoria);
+        $smt->execute();
+        echo "<span class='success'>Produto alterado com sucesso!</span>";
+    } catch (PDOException $e) {
+        echo "<span class='warning'>Erro ao alterar produto: " . $e->getMessage() . "</span>";
+    }
+}

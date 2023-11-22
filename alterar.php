@@ -2,7 +2,7 @@
     include('database.php');
     
      if (isset($_GET['produto'])) {
-         $consultaProduto = consultar($_GET['produto']);
+         $consultaProduto = consultarProduto($_GET['produto']);
          
          if ($consultaProduto !== null) {
              $produto = $consultaProduto->fetch(PDO::FETCH_ASSOC); // Obtém apenas a primeira linha do resultado (unica)
@@ -28,9 +28,11 @@
 
 <body>
 
-    <nav>
+<nav>
+        <img src="imgs/illustrations/baguete.png" alt="logo">
+
         <a href="index.html">Home</a>
-        <a href="consulta.php">Consultar produto</a>
+        <a href="consulta.php">Consulta</a>
     </nav>
 
     <h2>Alterar</h2>
@@ -79,12 +81,12 @@
         if ($nomeFoto != "" && preg_match("/^image\/(png|jpg|jpeg|gif|webp)$/", $tipoFoto) && $tamanhoFoto <= MAX_SIZE) {
             $novaLocalizacao = UPLOAD_DIR . $nomeFoto;
             move_uploaded_file($tmpFoto, $novaLocalizacao);
-            alterarComFoto($nome, $preco, $categoria, $novaLocalizacao);
+            alterarProdutoComFoto($nome, $preco, $categoria, $novaLocalizacao);
         } else if ($nomeFoto != "") {
             echo "Erro ao fazer upload do arquivo! Verifique se o arquivo é uma imagem e se o tamanho é menor que 5MB.";
         } 
             
-        alterarSemFoto($nome, $preco, $categoria);
+        alterarProdutoSemFoto($nome, $preco, $categoria);
         header('Location: consulta.php');
      }
 

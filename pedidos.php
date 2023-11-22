@@ -4,30 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Padaria Pão da Silva</title>
+    <title>Document</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 
-<style>
-    
-</style>
-
 <body>
+
     <nav>
         <img src="imgs/illustrations/baguete.png" alt="logo">
 
-        <a href="pedidos.php">Pedidos</a>
+        <a href="index.html">Home</a>
         <a href="cadastro.php">Cadastro</a>
         <a href="consulta.php">Consulta</a>
         <a href="arquivo.php">Arquivos</a>
     </nav>
 
-    <h1>Padaria pão da Silva</h1>
-    <footer>
-        <p>Desenvolvido por: Isabela Silvestre Rodrigues e Luanna Sachinelli Paggiaro</p>
-    </footer>
+    <form method="post">
+        <label for="produto">Produto:</label>
+        <input type="text" name="produto">
 
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" name="quantidade" min="0" max="50">
 
+        <input class="button" type="submit" value="Pedir">
+    </form>
 </body>
 
 </html>
