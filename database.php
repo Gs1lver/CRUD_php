@@ -161,10 +161,24 @@ function cadastrarPedido($cliente, $produto, $quantidade, $entrega, $disponivel)
 function consultarPedidos()
 {
     $pdo = conexao();
-    $smt = $pdo->prepare("SELECT * FROM padaria_produtos");
+    $smt = $pdo->prepare("SELECT * FROM padaria_pedidos");
     $smt->execute();
     return $smt;
     //retorna todos os pedidos
+}
+
+function consultarPedido($codigo = null)
+{
+    $pdo = conexao();
+
+    if ($codigo != null && $codigo != "") {
+        $smt = $pdo->prepare("SELECT * FROM padaria_pedidos WHERE codigo= :codigo");
+        $smt->bindParam(':codigo', $codigo);
+    } else {
+        $smt = $pdo->prepare("SELECT * FROM padaria_pedidos");
+    }
+    $smt->execute();
+    return $smt;
 }
 
 function alterarPedido($disponivel){

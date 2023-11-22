@@ -57,6 +57,7 @@
     <input type="file" name="foto">
 
     <input type="submit" value="Salvar" name="salvar" class="button"></input>
+    </form>
 
 </body>
 

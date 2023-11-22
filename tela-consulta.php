@@ -20,8 +20,8 @@
     </nav>
 
     <form method="get">
-        <input type="submit" class="button" href="consulta.php"></input>
-        <input type="submit" class="button" href="consulta-pedido.php"></input>
+        <a href="consulta.php" type="button">consulta de produtos</a>
+        <a href="consulta-pedido.php" type="button">consulta de pedidos</a>
     </form>
 
 </body>

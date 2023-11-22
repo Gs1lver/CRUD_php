@@ -34,16 +34,14 @@ include('database.php');
         echo "<tr><th></th><th>Cliente</th><th>Produto</th><th>Quantidade</th><th>Entrega</th><th>Disponível</th></tr>";
 
         while ($row = $smt->fetch()) {// Substitua 'id' pelo nome do seu campo ID
+            $codigo = $row['codigo'];
             echo "<tr>";
-            echo "<td><input type='radio' name='nomeProduto' value='$nomeProduto'></td>"; // Use o ID como valor
-            echo "<td>{$row['nome']}</td>";
-            echo "<td>{$row['preco']}</td>";
-            echo "<td>{$row['categoria']}</td>";
-            if ($row["foto"] != null)
-                echo "<td><img src='{$row['foto']}' width='50px' height='50px'></td>";
-            else
-                echo "<td>-</td>";
-            echo "</tr>";
+            echo "<td><input type='radio' name='codigo' value='$codigo'></td>"; // Use o ID como valor
+            echo "<td>{$row['cliente']}</td>";
+            echo "<td>{$row['produto']}</td>";
+            echo "<td>{$row['quantidade']}</td>";
+            echo "<td>{$row['entrega']}</td>";
+            echo "<td>{$row['disponivel']}</td>";
         }
 
         echo "</table><br>";
@@ -51,14 +49,14 @@ include('database.php');
         echo "</form>";
 
         //alteração
-        if (isset($_POST["alterar"]) && isset($_POST["nomeProduto"])) {
-            $produtoAlterar = $_POST["nomeProduto"];
+        if (isset($_POST["alterar"])) {
+            $pedidoAlterar = $_POST["codigo"];
             //echo "Botão Alterar clicado. Produto selecionado: " . $_POST["nomeProduto"];
-            header("Location: alterar.php?produto=$produtoAlterar");
+            header("Location: alterar-pedido.php?pedido=$pedidoAlterar");
         } elseif (isset($_POST["alterar"])) {
-            echo "<span class='warning'>Selecione um produto para alterar!</span>";
+            echo "<span class='warning'>Selecione um pedido para alterar!</span>";
         }
     } catch (PDOException $e) {
-        echo "Erro ao consultar produto: " . $e->getMessage();
+        echo "Erro ao consultar pedidos: " . $e->getMessage();
     }
 ?>
