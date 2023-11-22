@@ -32,7 +32,10 @@
         <img src="imgs/illustrations/baguete.png" alt="logo">
 
         <a href="index.html">Home</a>
+        <a href="pedidos.php">Pedidos</a>
+        <a href="cadastro.php">Cadastro</a>
         <a href="tela-consulta.php">Consulta</a>
+        <a href="arquivo.php">Arquivos</a>
     </nav>
 
     <h2>Alterar</h2>
@@ -58,8 +61,8 @@
 
         <label for="disponivel">Concluído: </label>
         <select name="disponivel">
-            <option value="0" <?= isset($pedido['disponivel']) && $pedido['disponivel'] == '0' ? 'selected' : ''; ?>>Sim</option>
-            <option value="1" <?= isset($pedido['disponivel']) && $pedido['disponivel'] == '1' ? 'selected' : ''; ?>>Não</option>
+            <option value="1" <?= isset($pedido['disponivel']) && $pedido['disponivel'] == '1' ? 'selected' : ''; ?>>Sim</option>
+            <option value="0" <?= isset($pedido['disponivel']) && $pedido['disponivel'] == '0' ? 'selected' : ''; ?>>Não</option>
         </select>
 
         <input type="submit" value="Salvar" name="salvar" class="button"></input>

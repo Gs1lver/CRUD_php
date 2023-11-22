@@ -1,8 +1,11 @@
 nome,preco,categoria,foto
 "água mineral ",4.00,bebida,
+"Bolacha passatempo",4.00,outro,
 brigadeiro,4.99,doce,./imgs/produtos/brigadeiro.webp
+Carolina,0.50,doce,
 cigarro,10.00,outro,
 coxinha,5.00,salgado,./imgs/produtos/coxinha.webp
+"Esfiha de frango",6.00,salgado,
 "pão de queijo",3.99,doce,
 pringles,9.99,salgado,
 "sonho de Babi",50.00,outro,

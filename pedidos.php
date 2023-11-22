@@ -15,6 +15,7 @@
         <img src="imgs/illustrations/baguete.png" alt="logo">
 
         <a href="index.html">Home</a>
+        <a href="pedidos.php">Pedidos</a>
         <a href="cadastro.php">Cadastro</a>
         <a href="tela-consulta.php">Consulta</a>
         <a href="arquivo.php">Arquivos</a>
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $produto = $_POST["produto"];
     $quantidade = $_POST["quantidade"];
     $entrega = $_POST["entrega"];
-    $disponivel = 1;
+    $disponivel = 0;
 
     try {
         cadastrarPedido($cliente, $produto, $quantidade, $entrega, $disponivel);

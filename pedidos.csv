@@ -1,7 +1,15 @@
-produto,quantidade,cliente,entrega,codigo,disponivel
-cigarro,1,linda,delivery,1,0
-cigarro,50,babi,retirada,2,0
-tortuguita,4,meinda,delivery,3,1
-"pão de queijo",2,will,retirada,4,1
-brigadeiro,2,nat,delivery,5,1
-"sonho de Babi",2,lua,retirada,6,1
+cliente,produto,quantidade,entrega,codigo,disponivel
+yasmin,"Bolacha passatempo",5,retirada,8,1
+Thiago,brigadeiro,40,retirada,9,0
+"Dona Rita","sonho de creme",20,delivery,10,0
+"Dona Sônia",cigarro,5,retirada,11,1
+"Seu Alberto",pringles,6,retirada,12,1
+Carol,"Bolo de chocolate",34,retirada,13,0
+Rosmari,Carolina,50,delivery,14,1
+Leo,"sonho de creme",27,delivery,15,1
+Regina,"pão de queijo",47,retirada,16,0
+Dolores,"água mineral ",14,delivery,17,0
+Matheus,"Bolo de Morango",23,retirada,18,0
+Regiane,cigarro,48,retirada,19,0
+Humberto,tortuguita,39,delivery,20,1
+Fábia,"Esfiha de frango",24,retirada,21,0

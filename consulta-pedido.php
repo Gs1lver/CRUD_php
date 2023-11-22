@@ -16,6 +16,7 @@
         <a href="index.html">Home</a>
         <a href="pedidos.php">Pedidos</a>
         <a href="cadastro.php">Cadastro</a>
+        <a href="tela-consulta.php">Consulta</a>
         <a href="arquivo.php">Arquivos</a>
     </nav>
 
@@ -31,7 +32,7 @@ include('database.php');
     try {
         $smt = consultarPedidos();
         echo "<form method='post'><table border='1px'>";
-        echo "<tr><th></th><th>Cliente</th><th>Produto</th><th>Quantidade</th><th>Entrega</th><th>Disponível</th></tr>";
+        echo "<tr><th></th><th>Cliente</th><th>Produto</th><th>Quantidade</th><th>Entrega</th><th>Concluído</th></tr>";
 
         while ($row = $smt->fetch()) {// Substitua 'id' pelo nome do seu campo ID
             $codigo = $row['codigo'];
