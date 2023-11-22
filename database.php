@@ -132,3 +132,52 @@ function alterarProdutoSemFoto($nome, $preco, $categoria)
         echo "<span class='warning'>Erro ao alterar produto: " . $e->getMessage() . "</span>";
     }
 }
+
+function cadastrarPedido($cliente, $produto, $quantidade, $entrega, $preco, $disponivel)
+{
+    try {
+        $nome = ucfirst($cliente);
+        $pdo = conexao();
+        $smt = $pdo->prepare("INSERT INTO padaria_pedidos (cliente, produto, quantidade, entrega, preco, disponivel) VALUES (:cliente, :produto, :quantidade, :entrega, :preco, :disponivel)");
+        $smt->bindParam(':cliente', $cliente);
+        $smt->bindParam(':produto', $produto);
+        $smt->bindParam(':quantidade', $entrega);
+        $smt->bindParam(':preco', $preco);
+        $smt->execute();
+        echo "<span class='success'>Produto cadastrado com sucesso!</span>";
+
+    } catch (PDOException $e) {
+        echo "<span class='warning'>Erro ao cadastrar pedido: " . $e->getMessage() . "</span>";
+    }
+}
+
+function consultarPedidos()
+{
+    $pdo = conexao();
+    $smt = $pdo->prepare("SELECT * FROM padaria_produtos");
+    $smt->execute();
+    return $smt;
+    //retorna todos os pedidos
+}
+
+function alterarPedido($disponivel){
+    try {
+        $pdo = conexao();
+        $smt = $pdo->prepare("UPDATE padaria_pedidos SET nome = :nome, preco = :preco, categoria = :categoria WHERE nome = :nome");
+        $smt->bindParam(':nome', $nome);
+        $smt->bindParam(':preco', $preco);
+        $smt->bindParam(':categoria', $categoria);
+        $smt->execute();
+        echo "<span class='success'>Produto alterado com sucesso!</span>";
+    } catch (PDOException $e) {
+        echo "<span class='warning'>Erro ao alterar produto: " . $e->getMessage() . "</span>";
+    }
+}
+
+function produtosDisponiveis(){
+    $pdo = conexao();
+    $smt = $pdo->prepare("SELECT nome FROM padaria_produtos");
+    $smt->execute();
+    return $smt;
+    //retorna so os nomes de produtos
+}

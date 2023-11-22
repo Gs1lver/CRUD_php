@@ -1,0 +1,9 @@
+nome,preco,categoria,foto
+"água mineral ",4.00,bebida,
+brigadeiro,4.99,doce,./imgs/produtos/brigadeiro.webp
+cigarro,10.00,outro,
+coxinha,5.00,salgado,./imgs/produtos/coxinha.webp
+"pão de queijo",3.99,doce,
+pringles,9.99,salgado,
+"sonho de creme",7.89,doce,./imgs/produtos/sonho.jpg
+tortuguita,5.00,doce,
