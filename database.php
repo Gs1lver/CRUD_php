@@ -148,7 +148,8 @@ function cadastrarPedido($cliente, $produto, $quantidade, $entrega, $disponivel)
         $smt = $pdo->prepare("INSERT INTO padaria_pedidos (cliente, produto, quantidade, entrega, disponivel) VALUES (:cliente, :produto, :quantidade, :entrega, :disponivel)");
         $smt->bindParam(':cliente', $cliente);
         $smt->bindParam(':produto', $produto);
-        $smt->bindParam(':quantidade', $entrega);
+        $smt->bindParam(':quantidade', $quantidade);
+        $smt->bindParam(':entrega', $entrega);
         $smt->bindParam(':disponivel', $disponivel);
         $smt->execute();
         echo "<span class='success'>Produto cadastrado com sucesso!</span>";

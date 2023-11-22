@@ -41,7 +41,7 @@
         ?>
 
         <label for="quantidade">Quantidade:</label>
-        <input type="number" name="quantidade" min="0" max="50" required>
+        <input type="number" name="quantidade" min="1" max="50" required>
 
         <label for="entrega">Entrega:</label>
         <select name="entrega" id="" required>
@@ -56,7 +56,6 @@
 </html>
 
 <?php
-include("database.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cliente = $_POST["cliente"];
